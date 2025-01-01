@@ -1,6 +1,6 @@
 using Terraria.ModLoader.IO;
 
-namespace Techaria.Content;
+namespace Techaria.Content.Machines.Generators;
 
 using static GelatinousTurbine;
 public class GelatinousTurbine : Machine<Tile, Item, Entity> {
@@ -8,6 +8,10 @@ public class GelatinousTurbine : Machine<Tile, Item, Entity> {
 	public class Tile : BaseTile {
 		public override int width => 3;
 		public override int height => 2;
+
+		public override void ModifyTileObjectData()
+		{
+		}
 
 		public override bool RightClick(int i, int j)
 		{
@@ -67,7 +71,8 @@ public class GelatinousTurbine : Machine<Tile, Item, Entity> {
 			{ItemID.VolatileGelatin, 438000} // 2 hours
 		};		
 		
-		Power[] IContain<Power>.Slots => [power];
+		Power[] IContain<Power>.Slots => [];
+		Power[] IContain<Power>.OutputSlots => [power];
 		Items[] IContain<Items>.Slots => [items];
 
 		public override void Update()
@@ -112,7 +117,12 @@ public class GelatinousTurbine : Machine<Tile, Item, Entity> {
 				}
 			}
 
-			if (burnTime <= 0)
+			if (power.power > 0)
+			{
+				PowerSystem.PushPower(power, Position.X, Position.Y, new Tile().width, new Tile().height);
+			}
+
+			if (burnTime <= 0 && !items.item.IsAir)
 			{
 				burnTime = fuelItems[items.item.type];
 				items.Remove(1);

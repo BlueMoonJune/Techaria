@@ -16,7 +16,7 @@ public interface IContain<T> where T : Resources<T>, new() {
 	public T[] OutputSlots => Slots; 
 	
 	public T[] GetOutputSlotsForConnector(object _) {
-		return InputSlots;
+		return OutputSlots;
 	}
 
 	public T InsertToSlot(T to, T from)

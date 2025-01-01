@@ -3,4 +3,29 @@ Items: {
 		DisplayName: Gelatinous Turbine
 		Tooltip: ""
 	}
+
+	Activations: {
+		DisplayName: Activations
+		Tooltip: ""
+	}
+
+	Power: {
+		DisplayName: Power
+		Tooltip: ""
+	}
+
+	Temperature: {
+		DisplayName: Temperature
+		Tooltip: ""
+	}
+
+	Volts: {
+		DisplayName: Volts
+		Tooltip: ""
+	}
+
+	Hydroturbine_Item: {
+		DisplayName: Hydroturbine_ Item
+		Tooltip: ""
+	}
 }

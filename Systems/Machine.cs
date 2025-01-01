@@ -1,3 +1,5 @@
+using Terraria.Enums;
+
 namespace Techaria.Systems;
 
 public abstract class Machine<TTile, TItem, TEntity>
@@ -5,11 +7,10 @@ public abstract class Machine<TTile, TItem, TEntity>
 	where TItem : Machine<TTile, TItem, TEntity>.BaseItem
 	where TEntity : Machine<TTile, TItem, TEntity>.BaseEntity
 {
-	public abstract class BaseTile : ModTile {
-
+	public abstract class BaseTile : ModTile
+	{
 		public override string Name {get{
 			var name = GetType().FullName.Replace('+', '_').Split('.');
-			Console.WriteLine($"[36m{name[name.Length-1]}[0m");
 			return name[name.Length-1];
 		}}
 
@@ -38,6 +39,7 @@ public abstract class Machine<TTile, TItem, TEntity>
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.Width = width;
             TileObjectData.newTile.Height = height;
+			TileObjectData.newTile.AnchorBottom = new AnchorData(AnchorType.SolidTile, width, 0);
             TileObjectData.newTile.CoordinateHeights = new int[height];
             for (int i = 0; i < height; i++) {
                 TileObjectData.newTile.CoordinateHeights[i] = 16;
@@ -77,7 +79,6 @@ public abstract class Machine<TTile, TItem, TEntity>
 	public abstract class BaseItem : ModItem {
 		public override string Name {get{
 			var name = GetType().FullName.Replace('+', '_').Split('.');
-			Console.WriteLine($"[36m{name[name.Length-1]}[0m");
 			return name[name.Length-1];
 		}}
 
@@ -87,6 +88,12 @@ public abstract class Machine<TTile, TItem, TEntity>
 	}
 
 	public abstract class BaseEntity : ModTileEntity {
+		
+		public override string Name {get{
+			var name = GetType().FullName.Replace('+', '_').Split('.');
+			return name[name.Length-1];
+		}}
+		
 		public override bool IsTileValidForEntity(int x, int y) {
 			return Main.tile[x,y].TileType == ModContent.TileType<TTile>();
 		}

@@ -16,7 +16,7 @@ public class Power : Resources<Power> {
 
     public override Power Insert(Power resource)
     {
-        resource.power -= Insert(resource.power);
+        resource.power = Insert(resource.power);
         return resource;
     }
 
@@ -45,5 +45,10 @@ public class Power : Resources<Power> {
     public override void Load(TagCompound tag)
     {
         power = tag.Get<float>("power");
+    }
+
+    public override string ToString()
+    {
+        return $"[i:{ModContent.ItemType<Content.RecipeItems.Power>()}] {power} / {max}";
     }
 }
